@@ -175,31 +175,38 @@ require_once("../include/sql.php");
                 <div class="main__aside-layout d-flex">
                     <div class="main__aside-layout-left">
                         <?php
-                            $ind = 53;
-                            $post = get_post($ind);
-                            $img = get_img_by_postid($post[0]['id']);
-                            $cate = get_category_by_postid($post[0]['id']);
+                        $ind = 53;
+                        $post = get_post($ind);
+                        $img = get_img_by_postid($ind);
+                        $cate = get_category_by_postid($ind);
+                        $suggests = get_suggest_by_postid($ind);
+
                         ?>
                         <div class="main__news-main-title">
                             <h2 class="main__nm-h2">
                                 <span class="main__highlight-news-title">
-                                <?php echo $post[0]['title'];?>
+                                    <?php echo $post[0]['title']; ?>
                                 </span>
                             </h2>
                         </div>
                         <div class="main__news-info d-flex">
                             <a href="#" class="main__news-category-title text-uppercase" title="Doanh nghiệp">
-                                <?php echo $cate[0]['title'];?>
+                                <?php echo $cate[0]['title']; ?>
                             </a>
                             <span class="main__clock">
                                 <i class="sprite sprite-clockcircle img-clock-1"></i>
                                 <i class="sprite sprite-clockwise img-clock-2"></i>
                             </span>
                             <div class="main__time">
-                                <span>04:10 PM <?php echo $post[0]['date'];?></span>
+                                <span>
+                                    <?php
+                                        $date = date_create($post[0]['date']);
+                                        echo date_format($date, "H:i A d/m/Y"); 
+                                        ?>
+                                </span>
                             </div>
                         </div>
-                        <div class="main__news-brief"><?php echo $post[0]['brief'];?>
+                        <div class="main__news-brief"><?php echo $post[0]['brief']; ?>
                         </div>
                         <div class="main__news-social d-flex">
                             <div class="main__news-social-button btn-like">
@@ -226,12 +233,15 @@ require_once("../include/sql.php");
                         </div>
                         <div class="main__news-suggest">
                             <ul class="main__news-suggest-ul">
-                                <li><a href="#" title="Hà Nội thúc đẩy quan hệ thương mại đầu tư với Nhật Bản trong điều kiện">Hà
-                                        Nội thúc đẩy quan hệ thương mại đầu tư với Nhật Bản trong điều kiện</a></li>
-                                <li><a href="#" title="Nhiều khả năng Triệu Quân Sự đã trốn thoát khỏi đèo Hải Vân">Nhiều khả
-                                        năng Triệu Quân Sự đã trốn thoát khỏi đèo Hải Vân</a></li>
-                                <li><a href="#" title="Quảng Nam xây dựng chiến lược phát triển cho cây sâm Ngọc Linh">Quảng Nam
-                                        xây dựng chiến lược phát triển cho cây sâm Ngọc Linh</a></li>
+                                <?php
+                                foreach ($suggests as $suggest):
+                                ?>
+                                    <li><a href="#" title="Hà Nội thúc đẩy quan hệ thương mại đầu tư với Nhật Bản trong điều kiện">
+                                        <?php echo $suggest[0]; ?>
+                                    </a></li>
+                                <?php
+                                endforeach;
+                                ?>
                             </ul>
                         </div>
                         <div class="main__news-detail">
@@ -256,7 +266,7 @@ require_once("../include/sql.php");
                                 Bộ phát triển lành mạnh, Quyền Bộ trưởng nhấn mạnh.
                             </p>
                             <div class="main__news-detail-img">
-                                <img src="<?php echo $img[0]['imgurl'];?>" alt="Ảnh minh hoạ">
+                                <img src="<?php echo $img[0]['imgurl']; ?>" alt="Ảnh minh hoạ">
                                 <span class="img-caption justify-content-between">Ảnh minh họa. (Nguồn ĐSVN)</span>
                             </div>
                             <p class="main__news-detail-content">
@@ -267,7 +277,7 @@ require_once("../include/sql.php");
                                 Vụ KHCN cần tham khảo kinh nghiệm quốc tế về 4.0 và tham khảo ý kiến của các Sở
                                 TT&TT.
                             </p>
-                            <p class="main__news-author"><?php echo $post[0]['author'];?></p>
+                            <p class="main__news-author"><?php echo $post[0]['author']; ?></p>
                             <br>
                         </div>
                         <div class="main__news-social social-bottom d-flex align-item-center">
@@ -355,44 +365,44 @@ require_once("../include/sql.php");
                                 <span class="main__category-title-name text-uppercase"">Tin nổi bật</span>
                             </h3>
                         </div>
-                        <div class="main__aside-leftcorner d-flex">
-                            <?php 
-                                $i = 1;
-                                $post = get_post_by_div('highlight', $i);
-                                $img = get_img_by_postid($post[0]['id']);                            
-                            ?>
-                            <div class="main__highlight-news">
-                                <a href="#" class="main__hl-news-img">
-                                    <img src="<?php echo $img[0]['imgurl']; ?>" alt='<?php echo $post[0]['title']; ?>'>
-                                </a>
-                                <h2 class="main__hl-h2"><a href="#" class="main__highlight-news-title" title='<?php echo $post[0]['title']; ?>'>
-                                    <?php echo $post[0]['title']; ?>
-                                    </a></h2>
-                                <a href="#" class="main__news-content-des" title='<?php echo $post[0]['brief']; ?>'><?php echo $post[0]['brief']; ?></a>
-                            </div>
-                            <div class="main__news-left-rightcorner">
-                                <?php 
-                                    $j = 52;
-                                    $postm = get_post($j);    
-                                    $imgm = get_img_by_postid($postm[0]['id']);
-                                ?>
-                                <div class="main__news-rightcorner">
-                                    <a href="#" class="main__news-rightcorner-1" title='<?php echo $postm[0]['title'];?>'>
-                                        <img src="<?php echo $imgm[0]['imgurl']; ?>" alt='<?php echo $postm[0]['title'];?>'>
-                                        <?php echo $postm[0]['title'];?>
-                                    </a>
-                                </div>
-                                <div class="main__news-rightcorner">
-                                    <a href="#" class="main__news-rightcorner-2" title='<?php echo $postm[0]['title'];?>'>
-                                        <?php echo $postm[0]['title'];?>
-                                    </a>
-                                </div>
-                                <div class="main__news-rightcorner">
-                                    <a href="#" class="main__news-rightcorner-2" title='<?php echo $postm[0]['title'];?>'>
-                                        <?php echo $postm[0]['title'];?>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class=" main__aside-leftcorner d-flex">
+                                    <?php
+                                    $i = 1;
+                                    $post = get_post_by_div('highlight', $i);
+                                    $img = get_img_by_postid($post[0]['id']);
+                                    ?>
+                                    <div class="main__highlight-news">
+                                        <a href="#" class="main__hl-news-img">
+                                            <img src="<?php echo $img[0]['imgurl']; ?>" alt='<?php echo $post[0]['title']; ?>'>
+                                        </a>
+                                        <h2 class="main__hl-h2"><a href="#" class="main__highlight-news-title" title='<?php echo $post[0]['title']; ?>'>
+                                                <?php echo $post[0]['title']; ?>
+                                            </a></h2>
+                                        <a href="#" class="main__news-content-des" title='<?php echo $post[0]['brief']; ?>'><?php echo $post[0]['brief']; ?></a>
+                                    </div>
+                                    <div class="main__news-left-rightcorner">
+                                        <?php
+                                        $j = 52;
+                                        $postm = get_post($j);
+                                        $imgm = get_img_by_postid($postm[0]['id']);
+                                        ?>
+                                        <div class="main__news-rightcorner">
+                                            <a href="#" class="main__news-rightcorner-1" title='<?php echo $postm[0]['title']; ?>'>
+                                                <img src="<?php echo $imgm[0]['imgurl']; ?>" alt='<?php echo $postm[0]['title']; ?>'>
+                                                <?php echo $postm[0]['title']; ?>
+                                            </a>
+                                        </div>
+                                        <div class="main__news-rightcorner">
+                                            <a href="#" class="main__news-rightcorner-2" title='<?php echo $postm[0]['title']; ?>'>
+                                                <?php echo $postm[0]['title']; ?>
+                                            </a>
+                                        </div>
+                                        <div class="main__news-rightcorner">
+                                            <a href="#" class="main__news-rightcorner-2" title='<?php echo $postm[0]['title']; ?>'>
+                                                <?php echo $postm[0]['title']; ?>
+                                            </a>
+                                        </div>
+                                    </div>
                         </div>
                         <div class="main__category-title-wrap border-top d-flex">
                             <h3>
@@ -400,34 +410,34 @@ require_once("../include/sql.php");
                             </h3>
                         </div>
                         <!-- Main News 1 -->
-                        <div class="main__news-listing">
-                            <?php
-                            $index2 = get_postid_from_div('mainnews1');
-                            for ($i = 0; $i <= 3; $i++) {
-                                $post = get_post($index2[$i]['id']);
-                                $cate = get_category_by_postid($index2[$i]['id']);
-                                $img = get_img_by_postid($index2[$i]['id']);
-                            ?>
-                                <div class="main__news-listing-item d-flex">
-                                    <div class="main__news-item-img">
-                                        <a href="#" title='<?php echo $post[0]['title']; ?>'>
-                                            <img src="<?php echo $img[0]['imgurl']; ?>" alt='<?php echo $post[0]['title']; ?>'>
-                                        </a>
-                                    </div>
-                                    <div class="main__news-item-content">
-                                        <h3>
-                                            <a href="#" class="main__news-item-title" title='<?php echo $post[0]['title']; ?>'>
-                                                <i class="<?php if ($img[0]['imgsprites'] != '') echo $img[0]['imgsprites'] . ' ' . 'm-right'; ?>"></i>
-                                                <?php echo $post[0]['title']; ?>
-                                            </a>
-                                        </h3>
-                                        <a href="#" class="main__news-category-list" title="<?php echo $cate[0]['title']; ?>">
-                                            <?php echo $cate[0]['title']; ?>
-                                        </a>
-                                        <p class="main__news-item-detail"><?php echo $post[0]['brief']; ?></p>
-                                    </div>
-                                </div>
-                            <?php } ?>
+                        <div class=" main__news-listing">
+                                    <?php
+                                    $index2 = get_postid_from_div('mainnews1');
+                                    for ($i = 0; $i <= 3; $i++) {
+                                        $post = get_post($index2[$i]['id']);
+                                        $cate = get_category_by_postid($index2[$i]['id']);
+                                        $img = get_img_by_postid($index2[$i]['id']);
+                                    ?>
+                                        <div class="main__news-listing-item d-flex">
+                                            <div class="main__news-item-img">
+                                                <a href="#" title='<?php echo $post[0]['title']; ?>'>
+                                                    <img src="<?php echo $img[0]['imgurl']; ?>" alt='<?php echo $post[0]['title']; ?>'>
+                                                </a>
+                                            </div>
+                                            <div class="main__news-item-content">
+                                                <h3>
+                                                    <a href="#" class="main__news-item-title" title='<?php echo $post[0]['title']; ?>'>
+                                                        <i class="<?php if ($img[0]['imgsprites'] != '') echo $img[0]['imgsprites'] . ' ' . 'm-right'; ?>"></i>
+                                                        <?php echo $post[0]['title']; ?>
+                                                    </a>
+                                                </h3>
+                                                <a href="#" class="main__news-category-list" title="<?php echo $cate[0]['title']; ?>">
+                                                    <?php echo $cate[0]['title']; ?>
+                                                </a>
+                                                <p class="main__news-item-detail"><?php echo $post[0]['brief']; ?></p>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                         </div>
                         <!-- Main News 2 -->
                         <div class="main__news-listing">
