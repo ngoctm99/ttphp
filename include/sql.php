@@ -99,3 +99,10 @@ function get_categorynews($id){
     $sql = "WHERE categorynews.id = $id";
     return find_by_sql($sql);
 }
+
+function get_suggest_by_postid($id){
+    global $db;
+    $sql = "SELECT title FROM suggest ";
+    $sql .= "WHERE suggest.FK_post = $id";
+    return find_by_sql($sql);
+}

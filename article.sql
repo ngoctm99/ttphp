@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th8 28, 2021 lúc 06:39 PM
+-- Thời gian đã tạo: Th8 30, 2021 lúc 09:08 AM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -437,6 +437,27 @@ INSERT INTO `subcategory` (`id`, `title`, `FK_category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `suggest`
+--
+
+CREATE TABLE `suggest` (
+  `id` int(10) NOT NULL,
+  `title` text NOT NULL,
+  `FK_post` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `suggest`
+--
+
+INSERT INTO `suggest` (`id`, `title`, `FK_post`) VALUES
+(1, 'Hà Nội thúc đẩy quan hệ thương mại đầu tư với Nhật Bản trong điều kiện', 53),
+(2, 'Nhiều khả năng Triệu Quân Sự đã trốn thoát khỏi đèo Hải Vân', 53),
+(3, 'Quảng Nam xây dựng chiến lược phát triển cho cây sâm Ngọc Linh', 53);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `video`
 --
 
@@ -558,6 +579,12 @@ ALTER TABLE `post`
 ALTER TABLE `subcategory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_category` (`FK_category`);
+
+--
+-- Chỉ mục cho bảng `suggest`
+--
+ALTER TABLE `suggest`
+  ADD KEY `FK_post` (`FK_post`);
 
 --
 -- Chỉ mục cho bảng `video`
@@ -742,6 +769,12 @@ ALTER TABLE `post`
 --
 ALTER TABLE `subcategory`
   ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`);
+
+--
+-- Các ràng buộc cho bảng `suggest`
+--
+ALTER TABLE `suggest`
+  ADD CONSTRAINT `suggest_ibfk_1` FOREIGN KEY (`FK_post`) REFERENCES `post` (`id`);
 
 --
 -- Các ràng buộc cho bảng `video`
